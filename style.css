@@ -1,0 +1,42 @@
+/* Palette & Variables */
+:root {
+    --bg-main: #FFFFFF;
+    --bg-secondary: #F8FAFC;
+    --bg-accent: #F1F5F9;
+    --bg-card: #FFFFFF;
+    
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+
+    --brand-primary: #1E293B;
+    --brand-accent: #2563EB;
+    --brand-accent-hover: #1D4ED8;
+    --brand-light: #EFF6FF;
+    --border-color: #E2E8F0;
+
+    --radius-md: 10px;
+    --radius-pill: 9999px;
+    --font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.btn {
+    border-radius: var(--radius-pill);
+    padding: 0.85rem 1.75rem;
+    font-weight: 600;
+    transition: all 0.25s ease-in-out;
+}
+.btn-primary {
+    background-color: var(--brand-accent);
+    color: #FFFFFF;
+}
+.btn-primary:hover {
+    background-color: var(--brand-accent-hover);
+}

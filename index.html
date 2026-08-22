@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lanka Technologies | Operational Excellence & Digital Transformation</title>
+    <meta name="description" content="Practical digital transformation, Business Intelligence dashboards, and process optimization for growing businesses and SMEs.">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. RESET & VARIABLES
+           ========================================================================== */
+        :root {
+            --bg-main: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-accent: #F1F5F9;
+            --bg-card: #FFFFFF;
+            
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --text-light: #F8FAFC;
+
+            --brand-primary: #1E293B;
+            --brand-accent: #2563EB;
+            --brand-accent-hover: #1D4ED8;
+            --brand-light: #EFF6FF;
+            --border-color: #E2E8F0;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-pill: 9999px;
+
+            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --transition: all 0.25s ease-in-out;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ==========================================================================
+           2. REUSABLE COMPONENTS & UTILITIES
+           ========================================================================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-gray {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            background-color: var(--brand-light);
+            color: var(--brand-accent);
+            font-size: 0.825rem;
+            font-weight: 600;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 820px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Buttons (Soft & Rounded) */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            font-size: 0.975rem;
+            font-weight: 600;
+            border-radius: var(--radius-pill);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-accent);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-accent-hover);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: var(--brand-primary);
+            border-color: var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-accent);
+            border-color: #CBD5E1;
+            transform: translateY(-1px);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Card Component */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #CBD5E1;
+        }
+
+        /* ==========================================================================
+           3. NAVBAR
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            height: 72px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--brand-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-accent);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--brand-primary);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero {
+            padding: 5.5rem 0 4.5rem 0;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.85rem;
+            line-height: 1.2;
+            font-weight: 700;
+            color: var(--brand-primary);
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.65;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .hero-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .hero-feature-item svg {
+            color: var(--brand-accent);
+            flex-shrink: 0;
+        }
+
+        .hero-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .pill-badge {
+            background-color: #FEF3C7;
+            color: #92400E;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+        }
+
+        .hero-card-list {
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-card-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.85rem;
+        }
+
+        .hero-card-list svg {
+            color: var(--brand-accent);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        /* ==========================================================================
+           5. PAIN POINTS SECTION
+           ========================================================================== */
+        .pain-points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pain-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            display: flex;
+            gap: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .pain-card:hover {
+            border-color: #CBD5E1;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pain-icon {
+            width: 44px;
+            height: 44px;
+            background-color: #FEF2F2;
+            color: #DC2626;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pain-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: var(--text-primary);
+        }
+
+        .pain-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           6. SERVICES SECTION
+           ========================================================================== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--brand-light);
+            color: var(--brand-accent);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.65rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .service-footer {
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           7. DIAGNOSTIC ENTRY OFFER SECTION
+           ========================================================================== */
+        .diagnostic-banner {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #FFFFFF;
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 3rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagnostic-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .diagnostic-banner h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+
+        .diagnostic-banner p {
+            font-size: 1.05rem;
+            color: #94A3B8;
+            margin-bottom: 1.75rem;
+            line-height: 1.6;
+        }
+
+        .diagnostic-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .diagnostic-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+        }
+
+        .diagnostic-item svg {
+            color: #60A5FA;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .diagnostic-item span {
+            font-size: 0.95rem;
+            color: #E2E8F0;
+        }
+
+        .diagnostic-pricing-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .diagnostic-pricing-box .price-tag {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin: 0.5rem 0 0.25rem 0;
+        }
+
+        .diagnostic-pricing-box .price-sub {
+            font-size: 0.85rem;
+            color: #94A3B8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           8. TARGET INDUSTRIES
+           ========================================================================== */
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .industry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .industry-card:hover {
+            border-color: var(--brand-accent);
+            transform: translateY(-2px);
+        }
+
+        .industry-icon {
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 1rem auto;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-primary);
+        }
+
+        .industry-card h4 {
+            font-size: 0.975rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ==========================================================================
+           9. CONTACT & BOOKING FORM SECTION
+           ========================================================================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--brand-primary);
+        }
+
+        .contact-info p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-detail-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--brand-light);
+            color: var(--brand-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-detail-text h4 {
+            font-size: 0.925rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .contact-detail-text p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        /* Booking Form */
+        .booking-form-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand-accent);
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           10. FOOTER
+           ========================================================================== */
+        .footer {
+            background-color: var(--brand-primary);
+            color: #94A3B8;
+            padding: 4rem 0 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column h4 {
+            color: #FFFFFF;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column ul a {
+            transition: var(--transition);
+        }
+
+        .footer-column ul a:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        /* Modal Alert */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: #FFFFFF;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-icon {
+            width: 56px;
+            height: 56px;
+            background: #DCFCE7;
+            color: #166534;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem auto;
+        }
+
+        .modal-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .modal-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           11. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid,
+            .diagnostic-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.35rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links.mobile-active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background-color: #FFFFFF;
+                border-bottom: 1px solid var(--border-color);
+                padding: 1.5rem;
+                gap: 1.25rem;
+                box-shadow: var(--shadow-md);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .diagnostic-banner {
+                padding: 2.25rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <span>Lanka Technologies</span>
+            </a>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#diagnostic">Performance Diagnostic</a></li>
+                <li><a href="#industries">Industries</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+
+            <div class="nav-cta">
+                <a href="#contact" class="btn btn-primary">Book Diagnostic</a>
+            </div>
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="badge">Practical Operational Excellence</span>
+                    <h1>Operations Excellence & Digital Transformation for Growing Businesses</h1>
+                    <p>We help SMEs and mid-sized companies simplify manual operations, gain clear performance visibility, and replace spreadsheet complexity with scalable digital systems.</p>
+                    
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary">
+                            Book Performance Diagnostic
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#services" class="btn btn-secondary">Explore Services</a>
+                    </div>
+
+                    <div class="hero-features">
+                        <div class="hero-feature-item">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>No Long Contracts</span>
+                        </div>
+                        <div class="hero-feature-item">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Practical SME Focus</span>
+                        </div>
+                        <div class="hero-feature-item">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Measurable Business Outcomes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Spotlight Box -->
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <h3>Recommended Door Opener</h3>
+                        <span class="pill-badge">RM 500</span>
+                    </div>
+                    <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Business Performance Diagnostic</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                        A focused 60–90 minute discovery session designed to evaluate your operational reporting and identify fast ROI improvements.
+                    </p>
+                    <ul class="hero-card-list">
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Full review of current Excel & reporting workflows</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>3–5 practical, immediate improvement recommendations</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Tailored implementation roadmap for your business</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-block">Schedule Your Session</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= PAIN POINTS SECTION ================= -->
+    <section class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <h2>Is Your Business Holding Back Due to Operational Bottlenecks?</h2>
+                <p>We work with growing companies facing common operational hurdles that slow down decision-making and inflate overheads.</p>
+            </div>
+
+            <div class="pain-points-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <div>
+                        <h3>Over-Reliance on Excel</h3>
+                        <p>Critical business operations locked inside fragmented spreadsheets, prone to error and manual updates.</p>
+                    </div>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </div>
+                    <div>
+                        <h3>Lack of Management Visibility</h3>
+                        <p>Leadership lacks real-time operational insights, relying on delayed end-of-month manual summaries.</p>
+                    </div>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <h3>Slow Reporting Cycles</h3>
+                        <p>Your team spends hours compiling data instead of analyzing key metrics to drive business decisions.</p>
+                    </div>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    </div>
+                    <div>
+                        <h3>Repetitive Manual Workflows</h3>
+                        <p>High volumes of email follow-ups and re-keying data between disconnected software applications.</p>
+                    </div>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Data Without Direction</h3>
+                        <p>Accumulating large amounts of transactional operational data without clear framework or actionable KPIs.</p>
+                    </div>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <div>
+                        <h3>Uncertain Digital Roadmap</h3>
+                        <p>Wanting to modernize operations but hesitant about high-cost enterprise software commitments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SERVICES SECTION ================= -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Core Practice Areas</h2>
+                <p>Simple, measurable, and scalable solutions built specifically for growing businesses.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="card service-card">
+                    <div>
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        </div>
+                        <h3>Business Intelligence & Dashboards</h3>
+                        <p>Turn raw data into interactive dashboards, KPI tracking hubs, and automated management reports that deliver single-pane executive visibility.</p>
+                    </div>
+                    <div class="service-footer">
+                        <span>Data Consolidation & Dashboards</span>
+                        <span>RM 1.5k – 5k</span>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="card service-card">
+                    <div>
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        </div>
+                        <h3>Process Improvement</h3>
+                        <p>Streamline workflows with process mapping, bottleneck identification, SOP redesign, and Lean principles to eliminate operational waste.</p>
+                    </div>
+                    <div class="service-footer">
+                        <span>Lean & SOP Redesign</span>
+                        <span>RM 2k – 6k</span>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="card service-card">
+                    <div>
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        </div>
+                        <h3>Digitalisation Projects</h3>
+                        <p>Convert manual spreadsheet and paper/email processes into streamlined digital workflows, automated trackers, and web tools.</p>
+                    </div>
+                    <div class="service-footer">
+                        <span>Workflow Automation</span>
+                        <span>RM 3k – 10k</span>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="card service-card">
+                    <div>
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                        </div>
+                        <h3>Operational Performance Systems</h3>
+                        <p>Establish clear KPI frameworks, balanced scorecards, and management tracking systems to align operational outcomes with business targets.</p>
+                    </div>
+                    <div class="service-footer">
+                        <span>KPI Scorecards & Governance</span>
+                        <span>RM 3k – 8k</span>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="card service-card">
+                    <div>
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        </div>
+                        <h3>Power BI Corporate Training</h3>
+                        <p>Practical beginner to intermediate workshops customized around your company's actual datasets to empower internal capability.</p>
+                    </div>
+                    <div class="service-footer">
+                        <span>Hands-on Workshops</span>
+                        <span>RM 1k – 2k / day</span>
+                    </div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="card service-card">
+                    <div>
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                        </div>
+                        <h3>Digital Transformation Advisory</h3>
+                        <p>Strategic technology assessments, transformation roadmaps, and vendor-neutral advisory to guide your growth phase effectively.</p>
+                    </div>
+                    <div class="service-footer">
+                        <span>Roadmaps & Strategy</span>
+                        <span>RM 3k – 8k</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= DIAGNOSTIC OFFER SECTION ================= -->
+    <section class="section" id="diagnostic" style="padding-top: 0;">
+        <div class="container">
+            <div class="diagnostic-banner">
+                <div class="diagnostic-grid">
+                    <div>
+                        <span class="badge" style="background: rgba(37,99,235,0.2); color: #93C5FD;">Low-Risk Entry Session</span>
+                        <h2>Book a Business Performance Diagnostic</h2>
+                        <p>
+                            Not sure where to begin? Our 60–90 minute diagnostic session provides an objective external review of your existing operations, reporting models, and digital capabilities.
+                        </p>
+                        
+                        <div class="diagnostic-features">
+                            <div class="diagnostic-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span><strong>60–90 Minute Interactive Discovery:</strong> Deep dive into your operational workflows and pain points.</span>
+                            </div>
+                            <div class="diagnostic-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span><strong>Reporting Assessment:</strong> Evaluation of current Excel models, manual reports, and visibility bottlenecks.</span>
+                            </div>
+                            <div class="diagnostic-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span><strong>3–5 Actionable Recommendations:</strong> Clear, pragmatic solutions you can implement right away.</span>
+                            </div>
+                        </div>
+
+                        <a href="#contact" class="btn btn-primary" style="background-color: #3B82F6;">Reserve Your Session</a>
+                    </div>
+
+                    <div class="diagnostic-pricing-box">
+                        <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94A3B8; font-weight: 600;">Fixed Investment</span>
+                        <div class="price-tag">RM 500</div>
+                        <div class="price-sub">100% credited toward future projects if you choose to proceed.</div>
+                        <ul style="text-align: left; font-size: 0.875rem; color: #CBD5E1; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                No long-term commitment
+                            </li>
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Designed for mid-market leaders
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Tailored to your specific sector
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TARGET INDUSTRIES ================= -->
+    <section class="section section-gray" id="industries">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sectors We Serve</h2>
+                <p>Tailored operational and digital excellence solutions for data-heavy and process-driven industries.</p>
+            </div>
+
+            <div class="industry-grid">
+                <div class="industry-card">
+                    <div class="industry-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </div>
+                    <h4>Distributors & Wholesalers</h4>
+                </div>
+
+                <div class="industry-card">
+                    <div class="industry-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <h4>Logistics & Freight</h4>
+                </div>
+
+                <div class="industry-card">
+                    <div class="industry-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h4>Healthcare & Pharma</h4>
+                </div>
+
+                <div class="industry-card">
+                    <div class="industry-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </div>
+                    <h4>Retail & E-Commerce</h4>
+                </div>
+
+                <div class="industry-card">
+                    <div class="industry-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <h4>Professional Services</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CONTACT / BOOKING SECTION ================= -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="badge">Get Started</span>
+                    <h3>Schedule Your Business Performance Diagnostic</h3>
+                    <p>Take the first step toward streamlined operations and real-time management visibility. Fill out the form, and our lead transformation advisor will reach out to schedule your 60–90 minute discovery session.</p>
+                    
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </div>
+                        <div class="contact-detail-text">
+                            <h4>Direct Advisory</h4>
+                            <p>Direct engagement with experienced operational consultants.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div class="contact-detail-text">
+                            <h4>Email Enquiries</h4>
+                            <p>info@lankatechnologies.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="contact-detail-text">
+                            <h4>Primary Market Focus</h4>
+                            <p>Malaysia & Southeast Asia Regional SMEs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="booking-form-card">
+                    <form id="diagnosticForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" class="form-control" placeholder="e.g. John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Work Email *</label>
+                                <input type="email" id="email" class="form-control" placeholder="john@company.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="company">Company Name *</label>
+                                <input type="text" id="company" class="form-control" placeholder="Company Sdn Bhd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="industry">Industry</label>
+                                <select id="industry" class="form-control">
+                                    <option value="">Select Sector</option>
+                                    <option value="distributor">Distributor / Wholesale</option>
+                                    <option value="logistics">Logistics / Transport</option>
+                                    <option value="healthcare">Healthcare / Pharma</option>
+                                    <option value="retail">Retail / E-Commerce</option>
+                                    <option value="services">Professional Services</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="painPoint">Primary Operational Challenge *</label>
+                            <select id="painPoint" class="form-control" required>
+                                <option value="">Select your main pain point</option>
+                                <option value="excel">Too much reliance on Excel spreadsheets</option>
+                                <option value="visibility">Lack of management visibility / delayed KPIs</option>
+                                <option value="reporting">Manual reporting takes too much time</option>
+                                <option value="process">Processes are manual and error-prone</option>
+                                <option value="digital">Want to digitalise but don't know where to start</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Additional Context (Optional)</label>
+                            <textarea id="notes" class="form-control" placeholder="Briefly describe your current tools or reporting setup..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" style="padding: 1rem;">
+                            Request Performance Diagnostic
+                        </button>
+                        
+                        <p class="form-note">
+                            We will contact you within 24 business hours to confirm session dates.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span>Lanka Technologies</span>
+                    </a>
+                    <p>Turning complex operational problems into simple, measurable, and scalable digital solutions for growing businesses.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Business Intelligence & Dashboards</a></li>
+                        <li><a href="#services">Process Improvement</a></li>
+                        <li><a href="#services">Digital Workflows</a></li>
+                        <li><a href="#services">Performance Systems</a></li>
+                        <li><a href="#services">Power BI Training</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Offerings</h4>
+                    <ul>
+                        <li><a href="#diagnostic">Performance Diagnostic</a></li>
+                        <li><a href="#services">Advisory & Roadmaps</a></li>
+                        <li><a href="#industries">Target Industries</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#contact">Book Consultation</a></li>
+                        <li><a href="#contact">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> Lanka Technologies. All rights reserved.</p>
+                <p>Practical Operations Excellence & Digital Transformation for Growing Businesses</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Diagnostic Request Received</h3>
+            <p>Thank you for submitting your details. Our principal consultant will review your information and reach out shortly to schedule your 60–90 minute session.</p>
+            <button class="btn btn-primary" id="closeModalBtn">Close</button>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set dynamic current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Mobile Navigation Toggle
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburgerBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('mobile-active');
+            });
+
+            // Close mobile menu when a nav link is clicked
+            document.querySelectorAll('#navLinks a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('mobile-active');
+                });
+            });
+
+            // Booking Form Handler & Modal Control
+            const diagnosticForm = document.getElementById('diagnosticForm');
+            const successModal = document.getElementById('successModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            diagnosticForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show Confirmation Modal
+                successModal.classList.add('active');
+
+                // Reset form fields
+                diagnosticForm.reset();
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                successModal.classList.remove('active');
+            });
+
+            // Close modal when clicking outside modal card
+            successModal.addEventListener('click', (e) => {
+                if (e.target === successModal) {
+                    successModal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
