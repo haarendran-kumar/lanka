@@ -157,6 +157,13 @@
             transform: translateY(-1px);
         }
 
+        .btn-primary:disabled {
+            background-color: #93C5FD;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         .btn-secondary {
             background-color: #FFFFFF;
             color: var(--brand-primary);
@@ -262,40 +269,33 @@
         /* ==========================================================================
            4. HERO SECTION
            ========================================================================== */
-
         .hero {
-        position: relative;
-        overflow: hidden;
-        background-color: #0F172A; /* Slate Navy Base Color */
-        color: var(--text-primary);
-        padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            background-color: #0F172A; /* Slate Navy Base Color */
+            color: var(--text-primary);
+            padding: 120px 0 80px;
         }
 
-        /* Background image overlay layer with custom opacity */
         .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        /* Replace 'images/hero-bg.jpg' with your local file path or high-res image URL */
-        background-image: url('images/hero-bg4.jpg');
-        background-position: center;
-        background-repeat: no-repeat;
-        
-        /* Transparency Control: Adjust between 0.08 (8%) and 0.20 (20%) */
-        opacity: 0.35; 
-        
-        z-index: 0;
-        pointer-events: none;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/hero-bg4.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.35; 
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Ensures text, buttons, and cards stay sharp on top of the background layer */
         .hero .container,
         .hero > * {
-        position: relative;
-        z-index: 1;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-grid {
@@ -334,7 +334,6 @@
             gap: 1.5rem;
             padding-top: 1.5rem;
             border-top: 1px solid var(--border-color);
-            
         }
 
         .hero-feature-item {
@@ -401,7 +400,6 @@
             flex-shrink: 0;
             margin-top: 3px;
         }
-
 
         /* ==========================================================================
            5. PAIN POINTS SECTION
@@ -1319,57 +1317,66 @@
                     </div>
                 </div>
 
-                <!-- Booking Form -->
+                <!-- Booking Form with Web3Forms Integration -->
                 <div class="booking-form-card">
                     <form id="diagnosticForm">
+                        <!-- REPLACE 'YOUR_WEB3FORMS_ACCESS_KEY' WITH YOUR ACTUAL KEY BELOW -->
+                        <input type="hidden" name="access_key" value="560cf301-0024-46d0-948d-0702a5e85ce3">
+                        
+                        <!-- Custom Email Subject -->
+                        <input type="hidden" name="subject" value="New Business Diagnostic Request - Lanka Technologies">
+                        
+                        <!-- Anti-Spam Honeypot Field -->
+                        <input type="checkbox" name="botcheck" style="display: none;">
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="fullName">Full Name *</label>
-                                <input type="text" id="fullName" class="form-control" placeholder="e.g. John Doe" required>
+                                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. John Doe" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Work Email *</label>
-                                <input type="email" id="email" class="form-control" placeholder="john@company.com" required>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="john@company.com" required>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="company">Company Name *</label>
-                                <input type="text" id="company" class="form-control" placeholder="Company Sdn Bhd" required>
+                                <input type="text" id="company" name="company" class="form-control" placeholder="Company Sdn Bhd" required>
                             </div>
                             <div class="form-group">
                                 <label for="industry">Industry</label>
-                                <select id="industry" class="form-control">
+                                <select id="industry" name="industry" class="form-control">
                                     <option value="">Select Sector</option>
-                                    <option value="distributor">Distributor / Wholesale</option>
-                                    <option value="logistics">Logistics / Transport</option>
-                                    <option value="healthcare">Healthcare / Pharma</option>
-                                    <option value="retail">Retail / E-Commerce</option>
-                                    <option value="services">Professional Services</option>
-                                    <option value="other">Other</option>
+                                    <option value="Distributor / Wholesale">Distributor / Wholesale</option>
+                                    <option value="Logistics / Transport">Logistics / Transport</option>
+                                    <option value="Healthcare / Pharma">Healthcare / Pharma</option>
+                                    <option value="Retail / E-Commerce">Retail / E-Commerce</option>
+                                    <option value="Professional Services">Professional Services</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="painPoint">Primary Operational Challenge *</label>
-                            <select id="painPoint" class="form-control" required>
+                            <select id="painPoint" name="painPoint" class="form-control" required>
                                 <option value="">Select your main pain point</option>
-                                <option value="excel">Too much reliance on Excel spreadsheets</option>
-                                <option value="visibility">Lack of management visibility / delayed KPIs</option>
-                                <option value="reporting">Manual reporting takes too much time</option>
-                                <option value="process">Processes are manual and error-prone</option>
-                                <option value="digital">Want to digitalise but don't know where to start</option>
+                                <option value="Too much reliance on Excel spreadsheets">Too much reliance on Excel spreadsheets</option>
+                                <option value="Lack of management visibility / delayed KPIs">Lack of management visibility / delayed KPIs</option>
+                                <option value="Manual reporting takes too much time">Manual reporting takes too much time</option>
+                                <option value="Processes are manual and error-prone">Processes are manual and error-prone</option>
+                                <option value="Want to digitalise but don't know where to start">Want to digitalise but don't know where to start</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="notes">Additional Context (Optional)</label>
-                            <textarea id="notes" class="form-control" placeholder="Briefly describe your current tools or reporting setup..."></textarea>
+                            <textarea id="notes" name="notes" class="form-control" placeholder="Briefly describe your current tools or reporting setup..."></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block" style="padding: 1rem;">
+                        <button type="submit" id="submitBtn" class="btn btn-primary btn-block" style="padding: 1rem;">
                             Request Performance Diagnostic
                         </button>
                         
@@ -1441,53 +1448,7 @@
         </div>
     </div>
 
-    <!-- ================= JAVASCRIPT ================= -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set dynamic current year in footer
-            document.getElementById('year').textContent = new Date().getFullYear();
-
-            // Mobile Navigation Toggle
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const navLinks = document.getElementById('navLinks');
-
-            hamburgerBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('mobile-active');
-            });
-
-            // Close mobile menu when a nav link is clicked
-            document.querySelectorAll('#navLinks a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('mobile-active');
-                });
-            });
-
-            // Booking Form Handler & Modal Control
-            const diagnosticForm = document.getElementById('diagnosticForm');
-            const successModal = document.getElementById('successModal');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-
-            diagnosticForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Show Confirmation Modal
-                successModal.classList.add('active');
-
-                // Reset form fields
-                diagnosticForm.reset();
-            });
-
-            closeModalBtn.addEventListener('click', () => {
-                successModal.classList.remove('active');
-            });
-
-            // Close modal when clicking outside modal card
-            successModal.addEventListener('click', (e) => {
-                if (e.target === successModal) {
-                    successModal.classList.remove('active');
-                }
-            });
-        });
-    </script>
+    <!-- External Script File Link -->
+    <script src="script.js"></script>
 </body>
 </html>

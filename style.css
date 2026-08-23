@@ -27,16 +27,31 @@ body {
     line-height: 1.6;
 }
 
+/* Rounded Buttons */
 .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: var(--radius-pill);
     padding: 0.85rem 1.75rem;
     font-weight: 600;
     transition: all 0.25s ease-in-out;
+    cursor: pointer;
+    border: 1px solid transparent;
 }
+
 .btn-primary {
     background-color: var(--brand-accent);
     color: #FFFFFF;
 }
+
 .btn-primary:hover {
     background-color: var(--brand-accent-hover);
+}
+
+.btn-primary:disabled {
+    background-color: #93C5FD;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
