@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Check if Access Key is still default placeholder
             const accessKeyInput = diagnosticForm.querySelector('input[name="access_key"]');
-            if (!accessKeyInput || accessKeyInput.value === '560cf301-0024-46d0-948d-0702a5e85ce3') {
+            if (!accessKeyInput || accessKeyInput.value === 'YOUR_WEB3FORMS_ACCESS_KEY') {
                 alert('Web3Forms Access Key missing: Please paste your Web3Forms Access Key into index_test.html (line ~520).');
                 return;
             }
