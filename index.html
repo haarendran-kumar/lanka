@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lanka Technologies | Operational Excellence & Digital Transformation</title>
     <meta name="description" content="Practical digital transformation, Business Intelligence dashboards, and process optimization for growing businesses and SMEs.">
+    
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,7 +197,7 @@
         }
 
         /* ==========================================================================
-           3. NAVBAR
+           3. NAVBAR & DROPDOWN MENU
            ========================================================================== */
         .navbar {
             position: sticky;
@@ -249,6 +250,55 @@
             gap: 1rem;
         }
 
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            min-width: 270px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 1100;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.65rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--brand-light);
+            color: var(--brand-accent);
+        }
+
         .hamburger {
             display: none;
             background: none;
@@ -272,7 +322,7 @@
         .hero {
             position: relative;
             overflow: hidden;
-            background-color: #0F172A; /* Slate Navy Base Color */
+            background-color: #0F172A;
             color: var(--text-primary);
             padding: 120px 0 80px;
         }
@@ -280,20 +330,16 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background-image: url('images/hero-bg4.jpg');
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.35; 
+            opacity: 0.35;
             z-index: 0;
             pointer-events: none;
         }
 
-        .hero .container,
-        .hero > * {
+        .hero .container, .hero > * {
             position: relative;
             z-index: 1;
         }
@@ -378,7 +424,7 @@
             color: #92400E;
             font-size: 0.75rem;
             font-weight: 700;
-            padding: 0.2rem 0.6rem;
+            padding: 0.35rem 0.85rem;
             border-radius: var(--radius-pill);
         }
 
@@ -426,14 +472,11 @@
         }
 
         .pain-icon {
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             background-color: #FEF2F2;
             color: #DC2626;
             border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
 
@@ -466,14 +509,11 @@
         }
 
         .service-icon {
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             background: var(--brand-light);
             color: var(--brand-accent);
             border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin-bottom: 1.25rem;
         }
 
@@ -494,16 +534,106 @@
         .service-footer {
             padding-top: 1rem;
             border-top: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             font-size: 0.85rem;
             color: var(--text-muted);
             font-weight: 500;
         }
 
         /* ==========================================================================
-           7. DIAGNOSTIC ENTRY OFFER SECTION
+           7. OUR WORK / SAMPLE DASHBOARDS (2x2 GRID)
+           ========================================================================== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: #CBD5E1;
+        }
+
+        .dashboard-img-placeholder {
+            width: 100%;
+            height: 210px;
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94A3B8;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dashboard-card-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .dashboard-industry-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--brand-accent);
+            background: var(--brand-light);
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-pill);
+            margin-bottom: 0.85rem;
+            align-self: flex-start;
+        }
+
+        .dashboard-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+        }
+
+        .dashboard-card-desc {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .dashboard-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--brand-accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .dashboard-link-btn:hover {
+            color: var(--brand-accent-hover);
+            transform: translateX(4px);
+        }
+
+        /* ==========================================================================
+           8. DIAGNOSTIC ENTRY OFFER SECTION
            ========================================================================== */
         .diagnostic-banner {
             background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
@@ -545,20 +675,15 @@
         }
 
         .diagnostic-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.85rem;
+            display: flex; align-items: flex-start; gap: 0.85rem;
         }
 
         .diagnostic-item svg {
-            color: #60A5FA;
-            flex-shrink: 0;
-            margin-top: 2px;
+            color: #60A5FA; flex-shrink: 0; margin-top: 2px;
         }
 
         .diagnostic-item span {
-            font-size: 0.95rem;
-            color: #E2E8F0;
+            font-size: 0.95rem; color: #E2E8F0;
         }
 
         .diagnostic-pricing-box {
@@ -571,20 +696,15 @@
         }
 
         .diagnostic-pricing-box .price-tag {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin: 0.5rem 0 0.25rem 0;
+            font-size: 2.25rem; font-weight: 700; color: #FFFFFF; margin: 0.5rem 0 0.25rem 0;
         }
 
         .diagnostic-pricing-box .price-sub {
-            font-size: 0.85rem;
-            color: #94A3B8;
-            margin-bottom: 1.5rem;
+            font-size: 0.85rem; color: #94A3B8; margin-bottom: 1.5rem;
         }
 
         /* ==========================================================================
-           8. TARGET INDUSTRIES
+           9. TARGET INDUSTRIES
            ========================================================================== */
         .industry-grid {
             display: grid;
@@ -607,25 +727,18 @@
         }
 
         .industry-icon {
-            width: 42px;
-            height: 42px;
-            margin: 0 auto 1rem auto;
-            background: var(--bg-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 42px; height: 42px; margin: 0 auto 1rem auto;
+            background: var(--bg-secondary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
             color: var(--brand-primary);
         }
 
         .industry-card h4 {
-            font-size: 0.975rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 0.975rem; font-weight: 600; color: var(--text-primary);
         }
 
         /* ==========================================================================
-           9. CONTACT & BOOKING FORM SECTION
+           10. CONTACT & BOOKING FORM SECTION
            ========================================================================== */
         .contact-grid {
             display: grid;
@@ -635,50 +748,31 @@
         }
 
         .contact-info h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--brand-primary);
+            font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; color: var(--brand-primary);
         }
 
         .contact-info p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
+            font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem;
         }
 
         .contact-detail-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;
         }
 
         .contact-detail-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--brand-light);
-            color: var(--brand-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            width: 40px; height: 40px; background-color: var(--brand-light);
+            color: var(--brand-accent); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
 
         .contact-detail-text h4 {
-            font-size: 0.925rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 0.925rem; font-weight: 600; color: var(--text-primary);
         }
 
         .contact-detail-text p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 0;
+            font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0;
         }
 
-        /* Booking Form */
         .booking-form-card {
             background: #FFFFFF;
             border: 1px solid var(--border-color);
@@ -687,227 +781,156 @@
             box-shadow: var(--shadow-md);
         }
 
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
+        .form-group { margin-bottom: 1.25rem; }
 
         .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
         }
 
         .form-group label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.4rem;
+            display: block; font-size: 0.875rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 0.4rem;
         }
 
         .form-control {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
-            font-family: inherit;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            transition: var(--transition);
+            width: 100%; padding: 0.75rem 1rem; font-size: 0.95rem;
+            font-family: inherit; border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm); background-color: var(--bg-secondary);
+            color: var(--text-primary); transition: var(--transition);
         }
 
         .form-control:focus {
-            outline: none;
-            border-color: var(--brand-accent);
-            background-color: #FFFFFF;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            outline: none; border-color: var(--brand-accent);
+            background-color: #FFFFFF; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
 
-        textarea.form-control {
-            resize: vertical;
-            min-height: 100px;
-        }
+        textarea.form-control { resize: vertical; min-height: 100px; }
 
         .form-note {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.75rem;
-            text-align: center;
+            font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; text-align: center;
         }
 
         /* ==========================================================================
-           10. FOOTER
+           11. FOOTER & MODAL
            ========================================================================== */
         .footer {
-            background-color: var(--brand-primary);
-            color: #94A3B8;
-            padding: 4rem 0 2rem 0;
-            font-size: 0.9rem;
+            background-color: var(--brand-primary); color: #94A3B8;
+            padding: 4rem 0 2rem 0; font-size: 0.9rem;
         }
 
         .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem; margin-bottom: 3rem;
         }
 
-        .footer-brand .logo {
-            color: #FFFFFF;
-            margin-bottom: 1rem;
-        }
+        .footer-brand .logo { color: #FFFFFF; margin-bottom: 1rem; }
 
-        .footer-brand p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
 
-        .footer-column h4 {
-            color: #FFFFFF;
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-        }
+        .footer-column h4 { color: #FFFFFF; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.2rem; }
 
-        .footer-column ul li {
-            margin-bottom: 0.75rem;
-        }
+        .footer-column ul li { margin-bottom: 0.75rem; }
 
-        .footer-column ul a {
-            transition: var(--transition);
-        }
+        .footer-column ul a { transition: var(--transition); }
 
-        .footer-column ul a:hover {
-            color: #FFFFFF;
-        }
+        .footer-column ul a:hover { color: #FFFFFF; }
 
         .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.85rem;
+            padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;
         }
 
-        /* Modal Alert */
         .modal-overlay {
-            position: fixed;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); display: flex;
+            align-items: center; justify-content: center; z-index: 2000;
+            opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-card {
+            background: #FFFFFF; padding: 2.5rem; border-radius: var(--radius-lg);
+            max-width: 480px; width: 90%; text-align: center; box-shadow: var(--shadow-lg);
+        }
+
+        .modal-icon {
+            width: 56px; height: 56px; background: #DCFCE7; color: #166534;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.25rem auto;
+        }
+
+        .modal-card h3 { font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+
+        .modal-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+        /* ==========================================================================
+           12. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid, .diagnostic-grid, .contact-grid {
+                grid-template-columns: 1fr; gap: 2.5rem;
+            }
+            .hero-content h1 { font-size: 2.35rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 868px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .nav-links, .nav-cta { display: none; }
+            .hamburger { display: block; }
+            .nav-links.mobile-active {
+                display: flex; flex-direction: column; position: absolute;
+                top: 72px; left: 0; width: 100%; background-color: #FFFFFF;
+                border-bottom: 1px solid var(--border-color); padding: 1.5rem;
+                gap: 1.25rem; box-shadow: var(--shadow-md);
+            }
+            .dropdown-menu {
+                position: static; opacity: 1; visibility: visible;
+                transform: none; box-shadow: none; border: none; padding-left: 1rem; display: none;
+            }
+            .dropdown.active .dropdown-menu { display: block; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .diagnostic-banner { padding: 2.25rem 1.5rem; }
+        }
+
+        /* ==========================================================================
+           13. POWERBI CONTAINER
+           ========================================================================== */
+        .embed-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #0F172A;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+        .embed-container iframe, .embed-placeholder {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.6);
+            border: 0;
+        }
+        .embed-placeholder {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-card {
-            background: #FFFFFF;
-            padding: 2.5rem;
-            border-radius: var(--radius-lg);
-            max-width: 480px;
-            width: 90%;
+            color: #94A3B8;
+            padding: 2rem;
             text-align: center;
-            box-shadow: var(--shadow-lg);
         }
-
-        .modal-icon {
-            width: 56px;
-            height: 56px;
-            background: #DCFCE7;
-            color: #166534;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.25rem auto;
-        }
-
-        .modal-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .modal-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* ==========================================================================
-           11. RESPONSIVE BREAKPOINTS
-           ========================================================================== */
-        @media (max-width: 992px) {
-            .hero-grid,
-            .diagnostic-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.35rem;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links, .nav-cta {
-                display: none;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .nav-links.mobile-active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 72px;
-                left: 0;
-                width: 100%;
-                background-color: #FFFFFF;
-                border-bottom: 1px solid var(--border-color);
-                padding: 1.5rem;
-                gap: 1.25rem;
-                box-shadow: var(--shadow-md);
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .diagnostic-banner {
-                padding: 2.25rem 1.5rem;
-            }
+        .page-header {
+            padding: 3rem 0 2rem 0;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
         }
     </style>
 </head>
@@ -916,12 +939,27 @@
     <!-- ================= NAVBAR ================= -->
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">
+            <a href="index.html" class="logo">
                 <span>Lanka Technologies</span>
             </a>
-            
+
             <ul class="nav-links" id="navLinks">
                 <li><a href="#services">Services</a></li>
+
+                <!-- "Our Work" Dropdown Menu -->
+                <li class="dropdown">
+                    <a href="#work" class="dropdown-toggle">
+                        Our Work
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="sales-performance.html">📊 Sales Performance Dashboard</a>
+                        <a href="inventory-performance.html">📦 Inventory Performance Dashboard</a>
+                        <a href="logistics-performance.html">🚚 Logistics Performance Dashboard</a>
+                        <a href="customer-service-performance.html">🎫 Customer Service Dashboard</a>
+                    </div>
+                </li>
+
                 <li><a href="#diagnostic">Performance Diagnostic</a></li>
                 <li><a href="#industries">Industries</a></li>
                 <li><a href="#contact">Contact Us</a></li>
@@ -947,13 +985,13 @@
                     <span class="badge">Practical Operational Excellence</span>
                     <h1>Operations Excellence & Digital Transformation for Growing Businesses</h1>
                     <p>We help SMEs and mid-sized companies simplify manual operations, gain clear performance visibility, and replace spreadsheet complexity with scalable digital systems.</p>
-                    
+
                     <div class="hero-actions">
                         <a href="#contact" class="btn btn-primary">
                             Book Performance Diagnostic
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
-                        <a href="#services" class="btn btn-secondary">Explore Services</a>
+                        <a href="#work" class="btn btn-secondary">Explore Sample Dashboards</a>
                     </div>
 
                     <div class="hero-features">
@@ -967,7 +1005,7 @@
                         </div>
                         <div class="hero-feature-item">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            <span>Measurable Business Outcomes</span>
+                            <span>Tailored to your specific sector</span>
                         </div>
                     </div>
                 </div>
@@ -980,7 +1018,7 @@
                     </div>
                     <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Business Performance Diagnostic</h4>
                     <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
-                        A focused 60–90 minute discovery session designed to evaluate your operational reporting and identify fast ROI improvements.
+                        A focused 60–90 minute discovery session designed to evaluate your operational reporting and identify fast ROI improvements. 100% credited toward future projects if you choose to proceed.
                     </p>
                     <ul class="hero-card-list">
                         <li>
@@ -1083,7 +1121,6 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service 1 -->
                 <div class="card service-card">
                     <div>
                         <div class="service-icon">
@@ -1098,7 +1135,6 @@
                     </div>
                 </div>
 
-                <!-- Service 2 -->
                 <div class="card service-card">
                     <div>
                         <div class="service-icon">
@@ -1113,7 +1149,6 @@
                     </div>
                 </div>
 
-                <!-- Service 3 -->
                 <div class="card service-card">
                     <div>
                         <div class="service-icon">
@@ -1128,7 +1163,6 @@
                     </div>
                 </div>
 
-                <!-- Service 4 -->
                 <div class="card service-card">
                     <div>
                         <div class="service-icon">
@@ -1143,7 +1177,6 @@
                     </div>
                 </div>
 
-                <!-- Service 5 -->
                 <div class="card service-card">
                     <div>
                         <div class="service-icon">
@@ -1158,7 +1191,6 @@
                     </div>
                 </div>
 
-                <!-- Service 6 -->
                 <div class="card service-card">
                     <div>
                         <div class="service-icon">
@@ -1176,8 +1208,85 @@
         </div>
     </section>
 
+    <!-- ================= OUR WORK / SAMPLE DASHBOARDS SECTION (2x2 GRID) ================= -->
+    <section class="section section-gray" id="work">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Interactive Portfolio</span>
+                <h2>Explore Our Power BI Work</h2>
+                <p>Interact with live sample operational dashboards built for growing regional enterprises.</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Card 1: Sales Performance -->
+                <div class="dashboard-card">
+                    <div class="dashboard-img-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        <span style="font-size: 0.85rem; margin-top: 0.5rem; font-weight: 500;">[ Dashboard Screenshot Placeholder ]</span>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <span class="dashboard-industry-badge">Distribution & FMCG</span>
+                        <h3 class="dashboard-card-title">📊 Sales Performance</h3>
+                        <p class="dashboard-card-desc">Explore sales trends, customer performance, product profitability and regional performance.</p>
+                        <a href="sales-performance.html" class="dashboard-link-btn">
+                            Launch Interactive Dashboard &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Inventory Performance -->
+                <div class="dashboard-card">
+                    <div class="dashboard-img-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        <span style="font-size: 0.85rem; margin-top: 0.5rem; font-weight: 500;">[ Dashboard Screenshot Placeholder ]</span>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <span class="dashboard-industry-badge">Distribution & Supply Chain</span>
+                        <h3 class="dashboard-card-title">📦 Inventory Performance</h3>
+                        <p class="dashboard-card-desc">Analyse inventory balance, stock coverage, slow-moving products, inventory value and stock-out risks.</p>
+                        <a href="inventory-performance.html" class="dashboard-link-btn">
+                            Launch Interactive Dashboard &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Logistics Performance -->
+                <div class="dashboard-card">
+                    <div class="dashboard-img-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        <span style="font-size: 0.85rem; margin-top: 0.5rem; font-weight: 500;">[ Dashboard Screenshot Placeholder ]</span>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <span class="dashboard-industry-badge">Logistics & Distribution</span>
+                        <h3 class="dashboard-card-title">🚚 Logistics Performance</h3>
+                        <p class="dashboard-card-desc">Monitor delivery performance, route efficiency, transport utilisation, cost and service levels.</p>
+                        <a href="logistics-performance.html" class="dashboard-link-btn">
+                            Launch Interactive Dashboard &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 4: Customer Service Performance -->
+                <div class="dashboard-card">
+                    <div class="dashboard-img-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        <span style="font-size: 0.85rem; margin-top: 0.5rem; font-weight: 500;">[ Dashboard Screenshot Placeholder ]</span>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <span class="dashboard-industry-badge">Customer Operations</span>
+                        <h3 class="dashboard-card-title">🎫 Customer Service Performance</h3>
+                        <p class="dashboard-card-desc">Analyse ticket volume, SLA performance, ageing, resolution time and customer issues.</p>
+                        <a href="customer-service-performance.html" class="dashboard-link-btn">
+                            Launch Interactive Dashboard &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ================= DIAGNOSTIC OFFER SECTION ================= -->
-    <section class="section" id="diagnostic" style="padding-top: 0;">
+    <section class="section" id="diagnostic">
         <div class="container">
             <div class="diagnostic-banner">
                 <div class="diagnostic-grid">
@@ -1187,7 +1296,7 @@
                         <p>
                             Not sure where to begin? Our 60–90 minute diagnostic session provides an objective external review of your existing operations, reporting models, and digital capabilities.
                         </p>
-                        
+
                         <div class="diagnostic-features">
                             <div class="diagnostic-item">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1213,11 +1322,11 @@
                         <ul style="text-align: left; font-size: 0.875rem; color: #CBD5E1; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
                             <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                                No long-term commitment
+                                No Long Contracts
                             </li>
                             <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                                Designed for mid-market leaders
+                                Practical SME Focus
                             </li>
                             <li style="display: flex; align-items: center; gap: 0.5rem;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1282,10 +1391,10 @@
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-info">
-                    <span class="badge">Get Started</span>
+                    <span class="badge" style="background: #FEF3C7; color: #92400E;"">Get Started</span>
                     <h3>Schedule Your Business Performance Diagnostic</h3>
                     <p>Take the first step toward streamlined operations and real-time management visibility. Fill out the form, and our lead transformation advisor will reach out to schedule your 60–90 minute discovery session.</p>
-                    
+
                     <div class="contact-detail-item">
                         <div class="contact-detail-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -1296,6 +1405,7 @@
                         </div>
                     </div>
 
+                    <!--
                     <div class="contact-detail-item">
                         <div class="contact-detail-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -1305,6 +1415,7 @@
                             <p>info@lankatechnologies.com</p>
                         </div>
                     </div>
+                    !-->
 
                     <div class="contact-detail-item">
                         <div class="contact-detail-icon">
@@ -1317,16 +1428,11 @@
                     </div>
                 </div>
 
-                <!-- Booking Form with Web3Forms Integration -->
+                <!-- Booking Form -->
                 <div class="booking-form-card">
                     <form id="diagnosticForm">
-                        <!-- REPLACE 'YOUR_WEB3FORMS_ACCESS_KEY' WITH YOUR ACTUAL KEY BELOW -->
                         <input type="hidden" name="access_key" value="560cf301-0024-46d0-948d-0702a5e85ce3">
-                        
-                        <!-- Custom Email Subject -->
                         <input type="hidden" name="subject" value="New Business Diagnostic Request - Lanka Technologies">
-                        
-                        <!-- Anti-Spam Honeypot Field -->
                         <input type="checkbox" name="botcheck" style="display: none;">
 
                         <div class="form-row">
@@ -1379,7 +1485,7 @@
                         <button type="submit" id="submitBtn" class="btn btn-primary btn-block" style="padding: 1rem;">
                             Request Performance Diagnostic
                         </button>
-                        
+
                         <p class="form-note">
                             We will contact you within 24 business hours to confirm session dates.
                         </p>
@@ -1394,7 +1500,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="#" class="logo">
+                    <a href="index.html" class="logo">
                         <span>Lanka Technologies</span>
                     </a>
                     <p>Turning complex operational problems into simple, measurable, and scalable digital solutions for growing businesses.</p>
@@ -1412,11 +1518,12 @@
                 </div>
 
                 <div class="footer-column">
-                    <h4>Offerings</h4>
+                    <h4>Our Work</h4>
                     <ul>
-                        <li><a href="#diagnostic">Performance Diagnostic</a></li>
-                        <li><a href="#services">Advisory & Roadmaps</a></li>
-                        <li><a href="#industries">Target Industries</a></li>
+                        <li><a href="sales-performance.html">Sales Performance</a></li>
+                        <li><a href="inventory-performance.html">Inventory Performance</a></li>
+                        <li><a href="logistics-performance.html">Logistics Performance</a></li>
+                        <li><a href="customer-service-performance.html">Customer Operations</a></li>
                     </ul>
                 </div>
 

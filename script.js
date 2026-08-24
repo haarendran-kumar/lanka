@@ -1,28 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Set dynamic current year in footer
+    // Dynamic Year
     const yearEl = document.getElementById('year');
     if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
     }
 
-    // Mobile Navigation Toggle
+    // Mobile Navigation & Dropdown Toggle
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const navLinks = document.getElementById('navLinks');
+    const dropdown = document.querySelector('.dropdown');
 
     if (hamburgerBtn && navLinks) {
         hamburgerBtn.addEventListener('click', () => {
             navLinks.classList.toggle('mobile-active');
         });
 
-        // Close mobile menu when a nav link is clicked
         document.querySelectorAll('#navLinks a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('mobile-active');
-            });
+            if (!link.classList.contains('dropdown-toggle')) {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('mobile-active');
+                });
+            }
         });
     }
 
-    // Diagnostic Booking Form Handler (Web3Forms Integration)
+    if (dropdown) {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                if (window.innerWidth <= 868) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        }
+    }
+
+    // Booking Form Handler
     const diagnosticForm = document.getElementById('diagnosticForm');
     const successModal = document.getElementById('successModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -32,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         diagnosticForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Check if Access Key is empty or still default placeholder string
             const accessKeyInput = diagnosticForm.querySelector('input[name="access_key"]');
             if (!accessKeyInput || !accessKeyInput.value || accessKeyInput.value === 'YOUR_WEB3FORMS_ACCESS_KEY') {
                 alert('Web3Forms Access Key missing: Please paste your Web3Forms Access Key into index.html.');
@@ -41,13 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const originalBtnText = submitBtn ? submitBtn.innerText : 'Request Performance Diagnostic';
 
-            // Indicate loading state
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.innerText = 'Sending Request...';
             }
 
-            // Convert form data to JSON for API submission
             const formData = new FormData(diagnosticForm);
             const object = Object.fromEntries(formData);
             const json = JSON.stringify(object);
@@ -65,18 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (result.success) {
-                    // Show confirmation modal on successful submission
-                    if (successModal) {
-                        successModal.classList.add('active');
-                    }
+                    if (successModal) successModal.classList.add('active');
                     diagnosticForm.reset();
                 } else {
-                    alert('Form Submission Failed: ' + (result.message || 'Please check your inputs and try again.'));
+                    alert('Form Submission Failed: ' + (result.message || 'Please try again.'));
                 }
             } catch (error) {
-                alert('Network Error: Unable to send request. Please check your internet connection or try again.');
+                alert('Network Error: Unable to send request. Please check your internet connection.');
             } finally {
-                // Restore button state
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerText = originalBtnText;
@@ -85,18 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Close Modal Controls
     if (closeModalBtn && successModal) {
-        closeModalBtn.addEventListener('click', () => {
-            successModal.classList.remove('active');
-        });
-
-        // Close modal when clicking dark backdrop area
+        closeModalBtn.addEventListener('click', () => successModal.classList.remove('active'));
         successModal.addEventListener('click', (e) => {
-            if (e.target === successModal) {
-                successModal.classList.remove('active');
-            }
+            if (e.target === successModal) successModal.classList.remove('active');
         });
     }
 });
-

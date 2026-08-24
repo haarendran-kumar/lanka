@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Performance Dashboard | Lanka Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ==========================================================================
+           1. RESET & VARIABLES
+           ========================================================================== */
+        :root {
+            --bg-main: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-accent: #F1F5F9;
+            --bg-card: #FFFFFF;
+            
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --text-light: #F8FAFC;
+
+            --brand-primary: #1E293B;
+            --brand-accent: #2563EB;
+            --brand-accent-hover: #1D4ED8;
+            --brand-light: #EFF6FF;
+            --border-color: #E2E8F0;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-pill: 9999px;
+
+            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --transition: all 0.25s ease-in-out;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ==========================================================================
+           2. REUSABLE COMPONENTS & UTILITIES
+           ========================================================================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-gray {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            background-color: var(--brand-light);
+            color: var(--brand-primary);
+            font-size: 0.825rem;
+            font-weight: 600;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 820px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Buttons (Soft & Rounded) */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            font-size: 0.975rem;
+            font-weight: 600;
+            border-radius: var(--radius-pill);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-accent);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-accent-hover);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background-color: #93C5FD;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: var(--brand-primary);
+            border-color: var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-accent);
+            border-color: #CBD5E1;
+            transform: translateY(-1px);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Card Component */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #CBD5E1;
+        }
+
+        /* ==========================================================================
+           3. NAVBAR & DROPDOWN MENU
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            height: 72px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--brand-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-accent);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            min-width: 270px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 1100;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.65rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--brand-light);
+            color: var(--brand-accent);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--brand-primary);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background-color: #0F172A;
+            color: var(--text-primary);
+            padding: 120px 0 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('images/hero-bg4.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero .container, .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.85rem;
+            line-height: 1.2;
+            font-weight: 700;
+            color: var(--brand-light);
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.65;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .hero-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .hero-feature-item svg {
+            color: var(--brand-accent);
+            flex-shrink: 0;
+        }
+
+        .hero-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .pill-badge {
+            background-color: #FEF3C7;
+            color: #92400E;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-pill);
+        }
+
+        .hero-card-list {
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-card-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.85rem;
+        }
+
+        .hero-card-list svg {
+            color: var(--brand-accent);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        /* ==========================================================================
+           5. PAIN POINTS SECTION
+           ========================================================================== */
+        .pain-points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pain-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            display: flex;
+            gap: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .pain-card:hover {
+            border-color: #CBD5E1;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pain-icon {
+            width: 44px; height: 44px;
+            background-color: #FEF2F2;
+            color: #DC2626;
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pain-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: var(--text-primary);
+        }
+
+        .pain-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           6. SERVICES SECTION
+           ========================================================================== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .service-icon {
+            width: 48px; height: 48px;
+            background: var(--brand-light);
+            color: var(--brand-accent);
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.65rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .service-footer {
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           7. OUR WORK / SAMPLE DASHBOARDS (2x2 GRID)
+           ========================================================================== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: #CBD5E1;
+        }
+
+        .dashboard-img-placeholder {
+            width: 100%;
+            height: 210px;
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94A3B8;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dashboard-card-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .dashboard-industry-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--brand-accent);
+            background: var(--brand-light);
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-pill);
+            margin-bottom: 0.85rem;
+            align-self: flex-start;
+        }
+
+        .dashboard-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+        }
+
+        .dashboard-card-desc {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .dashboard-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--brand-accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .dashboard-link-btn:hover {
+            color: var(--brand-accent-hover);
+            transform: translateX(4px);
+        }
+
+        /* ==========================================================================
+           8. DIAGNOSTIC ENTRY OFFER SECTION
+           ========================================================================== */
+        .diagnostic-banner {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #FFFFFF;
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 3rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagnostic-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .diagnostic-banner h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+
+        .diagnostic-banner p {
+            font-size: 1.05rem;
+            color: #94A3B8;
+            margin-bottom: 1.75rem;
+            line-height: 1.6;
+        }
+
+        .diagnostic-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .diagnostic-item {
+            display: flex; align-items: flex-start; gap: 0.85rem;
+        }
+
+        .diagnostic-item svg {
+            color: #60A5FA; flex-shrink: 0; margin-top: 2px;
+        }
+
+        .diagnostic-item span {
+            font-size: 0.95rem; color: #E2E8F0;
+        }
+
+        .diagnostic-pricing-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .diagnostic-pricing-box .price-tag {
+            font-size: 2.25rem; font-weight: 700; color: #FFFFFF; margin: 0.5rem 0 0.25rem 0;
+        }
+
+        .diagnostic-pricing-box .price-sub {
+            font-size: 0.85rem; color: #94A3B8; margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           9. TARGET INDUSTRIES
+           ========================================================================== */
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .industry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .industry-card:hover {
+            border-color: var(--brand-accent);
+            transform: translateY(-2px);
+        }
+
+        .industry-icon {
+            width: 42px; height: 42px; margin: 0 auto 1rem auto;
+            background: var(--bg-secondary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--brand-primary);
+        }
+
+        .industry-card h4 {
+            font-size: 0.975rem; font-weight: 600; color: var(--text-primary);
+        }
+
+        /* ==========================================================================
+           10. CONTACT & BOOKING FORM SECTION
+           ========================================================================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; color: var(--brand-primary);
+        }
+
+        .contact-info p {
+            font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem;
+        }
+
+        .contact-detail-item {
+            display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;
+        }
+
+        .contact-detail-icon {
+            width: 40px; height: 40px; background-color: var(--brand-light);
+            color: var(--brand-accent); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        .contact-detail-text h4 {
+            font-size: 0.925rem; font-weight: 600; color: var(--text-primary);
+        }
+
+        .contact-detail-text p {
+            font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0;
+        }
+
+        .booking-form-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group { margin-bottom: 1.25rem; }
+
+        .form-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+        }
+
+        .form-group label {
+            display: block; font-size: 0.875rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 0.4rem;
+        }
+
+        .form-control {
+            width: 100%; padding: 0.75rem 1rem; font-size: 0.95rem;
+            font-family: inherit; border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm); background-color: var(--bg-secondary);
+            color: var(--text-primary); transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none; border-color: var(--brand-accent);
+            background-color: #FFFFFF; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        textarea.form-control { resize: vertical; min-height: 100px; }
+
+        .form-note {
+            font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; text-align: center;
+        }
+
+        /* ==========================================================================
+           11. FOOTER & MODAL
+           ========================================================================== */
+        .footer {
+            background-color: var(--brand-primary); color: #94A3B8;
+            padding: 4rem 0 2rem 0; font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem; margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo { color: #FFFFFF; margin-bottom: 1rem; }
+
+        .footer-brand p { font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+
+        .footer-column h4 { color: #FFFFFF; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.2rem; }
+
+        .footer-column ul li { margin-bottom: 0.75rem; }
+
+        .footer-column ul a { transition: var(--transition); }
+
+        .footer-column ul a:hover { color: #FFFFFF; }
+
+        .footer-bottom {
+            padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;
+        }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); display: flex;
+            align-items: center; justify-content: center; z-index: 2000;
+            opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-card {
+            background: #FFFFFF; padding: 2.5rem; border-radius: var(--radius-lg);
+            max-width: 480px; width: 90%; text-align: center; box-shadow: var(--shadow-lg);
+        }
+
+        .modal-icon {
+            width: 56px; height: 56px; background: #DCFCE7; color: #166534;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.25rem auto;
+        }
+
+        .modal-card h3 { font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+
+        .modal-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+        /* ==========================================================================
+           12. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid, .diagnostic-grid, .contact-grid {
+                grid-template-columns: 1fr; gap: 2.5rem;
+            }
+            .hero-content h1 { font-size: 2.35rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 868px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .nav-links, .nav-cta { display: none; }
+            .hamburger { display: block; }
+            .nav-links.mobile-active {
+                display: flex; flex-direction: column; position: absolute;
+                top: 72px; left: 0; width: 100%; background-color: #FFFFFF;
+                border-bottom: 1px solid var(--border-color); padding: 1.5rem;
+                gap: 1.25rem; box-shadow: var(--shadow-md);
+            }
+            .dropdown-menu {
+                position: static; opacity: 1; visibility: visible;
+                transform: none; box-shadow: none; border: none; padding-left: 1rem; display: none;
+            }
+            .dropdown.active .dropdown-menu { display: block; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .diagnostic-banner { padding: 2.25rem 1.5rem; }
+        }
+
+        /* ==========================================================================
+           13. POWERBI CONTAINER
+           ========================================================================== */
+        .embed-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #0F172A;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+        .embed-container iframe, .embed-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .embed-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94A3B8;
+            padding: 2rem;
+            text-align: center;
+        }
+        .page-header {
+            padding: 3rem 0 2rem 0;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span>Lanka Technologies</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#services">Services</a></li>
+
+                <!-- "Our Work" Dropdown Menu -->
+                <li class="dropdown">
+                    <a href="#work" class="dropdown-toggle">
+                        Our Work
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="sales-performance.html">📊 Sales Performance Dashboard</a>
+                        <a href="inventory-performance.html">📦 Inventory Performance Dashboard</a>
+                        <a href="logistics-performance.html">🚚 Logistics Performance Dashboard</a>
+                        <a href="customer-service-performance.html">🎫 Customer Service Dashboard</a>
+                    </div>
+                </li>
+
+                <li><a href="index.html#diagnostic">Performance Diagnostic</a></li>
+                <li><a href="index.html#industries">Industries</a></li>
+                <li><a href="index.html#contact">Contact Us</a></li>
+            </ul>
+
+            <div class="nav-cta">
+                <a href="index.html#contact" class="btn btn-primary">Book Diagnostic</a>
+            </div>
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <a href="index.html#work" style="color: var(--brand-accent); font-size: 0.9rem; font-weight: 600;">&larr; Back to Our Work</a>
+            <h1 style="font-size: 2.25rem; font-weight: 700; margin: 0.75rem 0 0.5rem 0; color: var(--text-primary);">📦 Inventory Performance Dashboard</h1>
+            <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 800px;">
+                Designed for <strong>Distribution & Supply Chain</strong> companies to analyze stock coverage, dead stock risks, inventory valuation, and reorder triggers.
+            </p>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <div class="embed-container">
+                <!-- PASTE POWER BI EMBED CODE HERE -->
+                <div class="embed-placeholder">
+                    <svg width="64" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    <h3 style="color: #FFFFFF; font-size: 1.25rem; margin-top: 1rem;">Power BI Interactive Dashboard Loading...</h3>
+                    <p style="font-size: 0.9rem; max-width: 500px; margin-top: 0.5rem;">
+                        Replace this placeholder block in <code>inventory-performance.html</code> with your Power BI Publish-to-Web <code>&lt;iframe&gt;</code> snippet.
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                <div class="card">
+                    <h4 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem;">Days of Supply & Coverage</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Real-time tracking of stock availability vs lead times to prevent stock-outs during peak fulfillment periods.</p>
+                </div>
+                <div class="card">
+                    <h4 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem;">Slow-Moving & Aging Inventory</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Identify inventory aged >90 days to free up working capital and prevent warehouse holding cost write-offs.</p>
+                </div>
+                <div class="card">
+                    <h4 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem;">Stock Valuation Hub</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Multi-location warehouse stock balancing and automated replenishment alerts tailored to minimum reorder points.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3.5rem; background: var(--brand-light); border: 1px solid #BFDBFE; border-radius: var(--radius-lg); padding: 2.5rem; text-align: center;">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.5rem;">Struggling with Excess Stock or Warehouse Data Gaps?</h3>
+                <p style="font-size: 1rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto 1.5rem auto;">
+                    We replace manual Excel inventory trackers with automated, clear reporting frameworks.
+                </p>
+                <a href="index.html#contact" class="btn btn-primary">Book 60–90 Min Diagnostic (RM 500)</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span>Lanka Technologies</span>
+                    </a>
+                    <p>Turning complex operational problems into simple, measurable, and scalable digital solutions for growing businesses.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="index.html#services">Business Intelligence & Dashboards</a></li>
+                        <li><a href="index.html#services">Process Improvement</a></li>
+                        <li><a href="index.html#services">Digital Workflows</a></li>
+                        <li><a href="index.html#services">Performance Systems</a></li>
+                        <li><a href="index.html#services">Power BI Training</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Our Work</h4>
+                    <ul>
+                        <li><a href="sales-performance.html">Sales Performance</a></li>
+                        <li><a href="inventory-performance.html">Inventory Performance</a></li>
+                        <li><a href="logistics-performance.html">Logistics Performance</a></li>
+                        <li><a href="customer-service-performance.html">Customer Operations</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html#contact">Book Consultation</a></li>
+                        <li><a href="index.html#contact">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> 2026 Lanka Technologies. All rights reserved.</p>
+                <p>Practical Operations Excellence & Digital Transformation for Growing Businesses</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
