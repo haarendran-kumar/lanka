@@ -19,10 +19,8 @@ The website is designed for zero-overhead static hosting on **GitHub Pages**, **
 
 ```text
 ├── index.html        # Main landing page HTML structure
-├── css/
-│   └── styles.css    # Responsive styles, design system, and custom UI components
-├── js/
-│   └── main.js       # Asynchronous form handling, mobile menu navigation & modal logic
+├── styles.css        # Responsive styles, design system, and custom UI components
+├── script.js         # Asynchronous form handling, mobile menu navigation & modal logic
 ├── README.md         # Repository documentation & guide
 ├── LICENSE           # Open-source / proprietary software license
 └── .gitignore        # Files and directories ignored by Git tracking
