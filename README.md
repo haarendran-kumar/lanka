@@ -1,4 +1,4 @@
-# Lanka Technologies — Official Website
+# Lanka Technologies Ventures — Official Website
 
 > Practical Digital Transformation & Operational Excellence for Growing Businesses.
 
