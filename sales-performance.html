@@ -216,20 +216,29 @@
         }
 
         .logo {
-            display: flex;
+            /* display: flex; */
+            display: inline-flex;
             align-items: center;
             gap: 0.6rem;
             font-weight: 700;
             font-size: 1.25rem;
             color: var(--brand-primary);
             letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 42px;       /* Set a fixed height */
+            width: auto;        /* Maintain original aspect ratio */
+            object-fit: contain;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 1.5rem;
         }
+
 
         .nav-links a {
             font-size: 0.95rem;
@@ -937,6 +946,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Lanka Technologies Ventures Logo" class="logo-img">
                 <span>Lanka Technologies Ventures</span>
             </a>
 
